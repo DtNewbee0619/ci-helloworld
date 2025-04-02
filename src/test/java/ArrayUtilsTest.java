@@ -33,7 +33,6 @@ public class ArrayUtilsTest {
         assertThrows(NullPointerException.class, () -> {ArrayUtils.oddOrPos(null);});
     }
 
-
     @Test
     public void testOddOrPosAllPositives() {
         // Any nonempty x with only non-negative elements works, because the first part of the
@@ -44,5 +43,45 @@ public class ArrayUtilsTest {
     @Test
     public void testOddOrPositiveBothPositivesAndNegatives() {
         assertEquals(3, ArrayUtils.oddOrPos(new int[]{-3, -2, 0, 1, 4}));
+    }
+
+    @Test
+    void testEmptyArray() {
+        // Test with empty array (should return 0)
+        int[] emptyArray = {};
+        assertEquals(0, ArrayUtils.countOf(emptyArray, 5));
+    }
+
+    @Test
+    void testNoMatchingElements() {
+        // Test when array has no elements matching target
+        int[] array = {1, 2, 3, 4};
+        assertEquals(0, ArrayUtils.countOf(array, 5));
+    }
+
+    @Test
+    void testOneMatchingElement() {
+        // Test when array has exactly one element matching target
+        int[] array = {1, 2, 3, 4, 5};
+        assertEquals(1, ArrayUtils.countOf(array, 5));
+    }
+
+    @Test
+    void testMultipleMatchingElements() {
+        // Test when array has multiple elements matching target
+        int[] array = {5, 1, 5, 3, 5, 4};
+        assertEquals(3, ArrayUtils.countOf(array, 5));
+    }
+
+    @Test
+    void testAllElementsMatch() {
+        // Test when all elements match target
+        int[] array = {5, 5, 5};
+        assertEquals(3, ArrayUtils.countOf(array, 5));
+    }
+    @Test
+    void testNullArray() {
+        // Test with null array
+        assertThrows(NullPointerException.class, () -> ArrayUtils.countOf(null, 5));
     }
 }
